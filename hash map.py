@@ -27,6 +27,7 @@ class Map:
                 return
             head = head.next
 
+        head = self.bucket[index]
         new_node = MapNode(key, value)
         new_node.next = head
         self.bucket[index] = new_node
@@ -39,6 +40,7 @@ class Map:
             x = head.value
             head = head.next
             self.bucket[index] = head
+            self.count -= 1
             return x
         pre = None
         temp = head
@@ -47,6 +49,7 @@ class Map:
                 pre.next = head.next
                 head.next = None
                 self.bucket[index] = temp
+                self.count -= 1
                 return head.value
             pre = head
             head = head.next
