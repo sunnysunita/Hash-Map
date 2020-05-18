@@ -1,0 +1,48 @@
+import copy
+def longestConsecutiveSubsequence(lst):
+    my_dict = {}
+    for e in lst:
+        my_dict[e] = True
+    # print(my_dict.items())
+
+    max_len = 0
+    out_lst = 0
+    start_val = None
+
+    for e in lst:
+        if my_dict[e] == True:
+            temp = [e]
+            temp_len = 1
+            temp_start_val = e
+            j = copy.copy(e)
+            while True:
+                if j+1 in my_dict:
+                    temp.append(j+1)
+                    temp_len += 1
+                    my_dict[j+1] = False
+                else:
+                    break
+                j = j+1
+
+            while True:
+                if e-1 in my_dict:
+                    temp.append(e-1)
+                    temp_len += 1
+                    my_dict[e-1] = False
+                else:
+                    break
+                e -= 1
+            if temp_len == max_len:
+                if lst.index(min(temp)) < lst.index(min(out_lst)):
+                    max_len = temp_len
+                    out_lst = temp
+            elif temp_len > max_len:
+                max_len = temp_len
+                out_lst = temp
+    return out_lst
+
+n=int(input())
+lst=list(int(i) for i in input().strip().split(' '))
+final = longestConsecutiveSubsequence(lst)
+for num in final:
+    print(num)
